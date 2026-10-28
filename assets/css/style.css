@@ -1,0 +1,571 @@
+/* =========================================================
+   Live Facial Authentication — Global Styles
+   ========================================================= */
+
+:root {
+    --brand-primary: #4f46e5;
+    --brand-primary-dark: #3730a3;
+    --brand-secondary: #06b6d4;
+    --brand-dark: #111827;
+    --brand-light: #f9fafb;
+    --brand-muted: #6b7280;
+    --radius-lg: 14px;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--brand-light);
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    color: var(--brand-dark);
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+/* Navbar */
+.app-navbar {
+    background: linear-gradient(90deg, var(--brand-primary) 0%, var(--brand-primary-dark) 100%);
+}
+
+.app-navbar .nav-link {
+    font-weight: 500;
+    opacity: 0.9;
+}
+
+.app-navbar .nav-link.active,
+.app-navbar .nav-link:hover {
+    opacity: 1;
+    color: #fff;
+}
+
+/* Footer */
+.app-footer {
+    background-color: var(--brand-dark);
+    color: #d1d5db;
+    flex-shrink: 0;
+}
+
+/* Hero section */
+.hero-section {
+    background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-secondary) 100%);
+    color: #fff;
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+    padding: 5rem 0;
+}
+
+.hero-section h1 {
+    font-weight: 700;
+}
+
+.hero-section .lead {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Cards */
+.feature-card, .auth-card {
+    border: none;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 4px 18px rgba(17, 24, 39, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 24px rgba(17, 24, 39, 0.12);
+}
+
+.feature-card .icon-wrap {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(79, 70, 229, 0.1);
+    color: var(--brand-primary);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Auth forms (signup / signin) */
+.auth-wrapper {
+    min-height: calc(100vh - 200px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1rem;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 440px;
+    padding: 2.5rem;
+}
+
+.auth-card .form-label {
+    font-weight: 500;
+}
+
+.btn-brand {
+    background-color: var(--brand-primary);
+    border-color: var(--brand-primary);
+    color: #fff;
+    font-weight: 600;
+}
+
+.btn-brand:hover {
+    background-color: var(--brand-primary-dark);
+    border-color: var(--brand-primary-dark);
+    color: #fff;
+}
+
+/* Dashboard */
+.stat-card {
+    border: none;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 4px 18px rgba(17, 24, 39, 0.06);
+}
+
+/* Camera placeholder (used later in face-register / face-verify phases) */
+.camera-placeholder {
+    border: 2px dashed #d1d5db;
+    border-radius: var(--radius-lg);
+    background-color: #fff;
+    min-height: 320px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: var(--brand-muted);
+    text-align: center;
+    padding: 2rem;
+}
+
+.camera-placeholder i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--brand-primary);
+}
+
+/* Live camera box (Phase 6) */
+.camera-box {
+    position: relative;
+    border-radius: var(--radius-lg);
+    background-color: #111827;
+    min-height: 320px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.camera-box video {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    background-color: #000;
+    transform: scaleX(-1); /* mirror, like looking in a mirror */
+    display: block;
+}
+
+.camera-box .camera-placeholder {
+    position: absolute;
+    inset: 0;
+    border: none;
+    border-radius: var(--radius-lg);
+    background-color: #fff;
+}
+
+.camera-status-badge {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(17, 24, 39, 0.75);
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 999px;
+    z-index: 2;
+}
+
+.camera-status-badge .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #22c55e;
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.25);
+    animation: statusPulse 1.6s ease-in-out infinite;
+}
+
+@keyframes statusPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+}
+
+/* Face detection overlay (Phase 7) */
+.face-overlay-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 320px;
+    transform: scaleX(-1); /* match the mirrored video underneath */
+    pointer-events: none;
+    z-index: 1;
+}
+
+.face-status-badge {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 999px;
+    z-index: 2;
+    color: #fff;
+    background: rgba(17, 24, 39, 0.75);
+}
+
+.face-status-badge::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: currentColor;
+    flex-shrink: 0;
+}
+
+.face-guidance-banner {
+    position: absolute;
+    left: 14px;
+    right: 14px;
+    bottom: 14px;
+    z-index: 2;
+    text-align: center;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #fff;
+}
+
+/* Shared tone colors for the face status badge + guidance banner */
+.tone-good {
+    background-color: rgba(22, 163, 74, 0.85);
+    color: #fff;
+}
+
+.tone-warn {
+    background-color: rgba(245, 158, 11, 0.9);
+    color: #1f2937;
+}
+
+.tone-bad {
+    background-color: rgba(220, 38, 38, 0.88);
+    color: #fff;
+}
+
+.tone-neutral {
+    background-color: rgba(55, 65, 81, 0.85);
+    color: #fff;
+}
+
+.reg-status-pill,
+.status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 18px;
+    border-radius: 999px;
+    background-color: #eef2f7;
+    color: #1f2937;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+/* PHASE 10 — Access result panels (face-verify.php) */
+.result-panel {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 4px 18px rgba(17, 24, 39, 0.08);
+}
+
+.result-panel .result-icon {
+    font-size: 2.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.result-panel-granted {
+    background-color: #f0fdf4;
+    border: 1px solid rgba(22, 163, 74, 0.25);
+}
+
+.result-panel-granted .result-icon {
+    color: #16a34a;
+}
+
+.result-panel-denied {
+    background-color: #fef2f2;
+    border: 1px solid rgba(220, 38, 38, 0.25);
+}
+
+.result-panel-denied .result-icon {
+    color: #dc2626;
+}
+
+.result-details {
+    max-width: 320px;
+    margin: 0 auto 1.25rem;
+    text-align: left;
+}
+
+.result-details li {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.4rem 0;
+    border-bottom: 1px dashed rgba(17, 24, 39, 0.1);
+    font-size: 0.95rem;
+}
+
+.result-details li:last-child {
+    border-bottom: none;
+}
+
+.result-details .label {
+    color: var(--brand-muted);
+    font-weight: 500;
+}
+
+.badge-verified {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 999px;
+    background-color: rgba(22, 163, 74, 0.15);
+    color: #15803d;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+/* PHASE 11 — Dashboard, Profile, Security, History */
+.stat-card {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Generic icon badge — used standalone on stat cards (dashboard,
+   profile, security) as well as nested inside .feature-card on the
+   landing page. Previously only the .feature-card-scoped version
+   existed, so icons on the dashboard/profile/security cards rendered
+   with no circular background (Phase 12 audit fix). */
+.icon-wrap {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(79, 70, 229, 0.1);
+    color: var(--brand-primary);
+    font-size: 1.35rem;
+    margin-bottom: 0.75rem;
+}
+
+.icon-wrap-good {
+    background: rgba(22, 163, 74, 0.12);
+    color: #16a34a;
+}
+
+.icon-wrap-bad {
+    background: rgba(220, 38, 38, 0.12);
+    color: #dc2626;
+}
+
+.badge-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.8rem;
+    line-height: 1.4;
+}
+
+.badge-good {
+    background: rgba(22, 163, 74, 0.12);
+    color: #15803d;
+}
+
+.badge-bad {
+    background: rgba(220, 38, 38, 0.12);
+    color: #b91c1c;
+}
+
+.badge-warn {
+    background: rgba(245, 158, 11, 0.15);
+    color: #b45309;
+}
+
+/* Quick links list on the dashboard */
+.dashboard-quicklinks .quicklink-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    color: var(--brand-dark);
+    text-decoration: none;
+    font-weight: 500;
+    background-color: #f9fafb;
+    transition: background-color 0.15s ease;
+}
+
+.dashboard-quicklinks .quicklink-item i {
+    color: var(--brand-primary);
+    font-size: 1.05rem;
+    width: 20px;
+    text-align: center;
+}
+
+.dashboard-quicklinks .quicklink-item:hover {
+    background-color: #eef2ff;
+}
+
+.dashboard-quicklinks .quicklink-item.quicklink-danger i {
+    color: #dc2626;
+}
+
+.dashboard-quicklinks .quicklink-item.quicklink-danger:hover {
+    background-color: #fef2f2;
+}
+
+/* History / recent activity tables */
+.history-table {
+    font-size: 0.92rem;
+}
+
+.history-table thead th {
+    text-transform: uppercase;
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    color: var(--brand-muted);
+    font-weight: 700;
+    border-bottom-width: 1px;
+}
+
+.history-table tbody tr:hover {
+    background-color: #f9fafb;
+}
+
+.history-filters .form-select {
+    min-width: 140px;
+}
+
+/* Profile page */
+.profile-avatar {
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    background: rgba(79, 70, 229, 0.12);
+    color: var(--brand-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.25rem;
+}
+
+.detail-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.65rem 0;
+    border-bottom: 1px dashed rgba(17, 24, 39, 0.1);
+}
+
+.detail-list li:last-child {
+    border-bottom: none;
+}
+
+.detail-list .label {
+    color: var(--brand-muted);
+    font-weight: 500;
+}
+
+/* Security page summary tiles */
+.summary-tile {
+    border-radius: var(--radius-lg);
+    padding: 1.25rem 0.5rem;
+}
+
+.summary-tile.summary-good {
+    background: rgba(22, 163, 74, 0.08);
+}
+
+.summary-tile.summary-bad {
+    background: rgba(220, 38, 38, 0.08);
+}
+
+.summary-number {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.summary-tile.summary-good .summary-number {
+    color: #16a34a;
+}
+
+.summary-tile.summary-bad .summary-number {
+    color: #dc2626;
+}
+
+.summary-label {
+    color: var(--brand-muted);
+    font-weight: 500;
+    font-size: 0.85rem;
+}
+
+/* Responsiveness */
+@media (max-width: 767.98px) {
+    .dashboard-page h2,
+    .history-page h2,
+    .profile-page h2,
+    .security-page h2 {
+        font-size: 1.5rem;
+    }
+
+    .stat-card h4 {
+        font-size: 1.1rem;
+    }
+
+    .history-table {
+        font-size: 0.85rem;
+    }
+
+    .history-filters .form-select {
+        min-width: 0;
+        width: 100%;
+    }
+}
+
+/* Utility */
+.section-title {
+    font-weight: 700;
+    margin-bottom: 2.5rem;
+}

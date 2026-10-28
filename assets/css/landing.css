@@ -1,0 +1,541 @@
+/* =========================================================
+   Landing Page — "Verification Console" design system
+   Scoped to index.php only. Loaded via $extraHeadHTML hook.
+
+   Design tokens
+   -------------
+   Ink 950   #060B14   page background
+   Ink 900   #0B1424   section background (alt)
+   Ink 800   #121D33   card / panel surface
+   Line      rgba(255,255,255,.08)   hairline borders
+   Mint 400  #34E0A1   primary accent — "verified"
+   Mint 500  #1FC98B   primary accent, pressed/darker
+   Azure 400 #5B8DEF   secondary accent — trust / data
+   Amber 400 #F2B84B   tertiary accent — liveness pulse, used sparingly
+   Text 100  #EAF0FA   headings
+   Text 300  #B7C2D6   body copy
+   Text 500  #7E8BA3   muted / captions
+
+   Type
+   ----
+   Display  'Space Grotesk'   headings, eyebrows, buttons
+   Body     'IBM Plex Sans'   paragraphs
+   Mono     'IBM Plex Mono'   status readouts, data labels, spec lists
+   ========================================================= */
+
+.landing {
+    --ink-950: #060B14;
+    --ink-900: #0B1424;
+    --ink-850: #0E1930;
+    --ink-800: #121D33;
+    --line: rgba(255, 255, 255, 0.08);
+    --line-strong: rgba(255, 255, 255, 0.14);
+    --mint-400: #34E0A1;
+    --mint-500: #1FC98B;
+    --azure-400: #5B8DEF;
+    --amber-400: #F2B84B;
+    --text-100: #EAF0FA;
+    --text-300: #B7C2D6;
+    --text-500: #7E8BA3;
+
+    background: var(--ink-950);
+    color: var(--text-300);
+    font-family: 'IBM Plex Sans', sans-serif;
+    overflow-x: hidden;
+}
+
+.landing h1,
+.landing h2,
+.landing h3,
+.landing .display-font {
+    font-family: 'Space Grotesk', sans-serif;
+    color: var(--text-100);
+    letter-spacing: -0.01em;
+}
+
+.landing .mono {
+    font-family: 'IBM Plex Mono', monospace;
+}
+
+.landing .eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--mint-400);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.landing .eyebrow::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--mint-400);
+    box-shadow: 0 0 0 3px rgba(52, 224, 161, 0.18);
+}
+
+.landing .section-pad {
+    padding: 5.5rem 0;
+}
+
+.landing .section-alt {
+    background: var(--ink-900);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+}
+
+/* ---------- Hero ---------- */
+.landing-hero {
+    position: relative;
+    padding: 6rem 0 5rem;
+    background:
+        radial-gradient(60% 55% at 82% 15%, rgba(91, 141, 239, 0.16) 0%, rgba(91, 141, 239, 0) 60%),
+        radial-gradient(45% 45% at 8% 85%, rgba(52, 224, 161, 0.10) 0%, rgba(52, 224, 161, 0) 60%),
+        var(--ink-950);
+}
+
+.landing-hero .hero-copy h1 {
+    font-size: clamp(2.4rem, 4.6vw, 3.6rem);
+    font-weight: 600;
+    line-height: 1.08;
+    margin: 1.1rem 0 1.25rem;
+}
+
+.landing-hero .hero-copy .lede {
+    font-size: 1.1rem;
+    color: var(--text-300);
+    max-width: 480px;
+    margin-bottom: 2rem;
+}
+
+.landing-cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-bottom: 1.75rem;
+}
+
+.btn-mint {
+    background: linear-gradient(180deg, var(--mint-400), var(--mint-500));
+    color: #06251A;
+    font-weight: 600;
+    border: none;
+    padding: 0.72rem 1.4rem;
+    border-radius: 10px;
+    font-family: 'Space Grotesk', sans-serif;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn-mint:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px rgba(52, 224, 161, 0.25);
+    color: #06251A;
+}
+
+.btn-azure-outline {
+    background: transparent;
+    color: var(--azure-400);
+    border: 1px solid rgba(91, 141, 239, 0.5);
+    padding: 0.72rem 1.4rem;
+    border-radius: 10px;
+    font-weight: 600;
+    font-family: 'Space Grotesk', sans-serif;
+    transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.btn-azure-outline:hover {
+    background: rgba(91, 141, 239, 0.1);
+    border-color: var(--azure-400);
+    color: var(--azure-400);
+}
+
+.btn-ghost-text {
+    background: transparent;
+    color: var(--text-100);
+    border: 1px solid var(--line-strong);
+    padding: 0.72rem 1.4rem;
+    border-radius: 10px;
+    font-weight: 600;
+    font-family: 'Space Grotesk', sans-serif;
+    transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.btn-ghost-text:hover {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: var(--text-500);
+    color: var(--text-100);
+}
+
+.hero-microtrust {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.1rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--text-500);
+}
+
+.hero-microtrust span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.hero-microtrust i {
+    color: var(--mint-400);
+    font-size: 0.85rem;
+}
+
+/* ---------- Verification Viewfinder (signature element) ---------- */
+.viewfinder-wrap {
+    display: flex;
+    justify-content: center;
+}
+
+.viewfinder {
+    position: relative;
+    width: 100%;
+    max-width: 340px;
+    aspect-ratio: 1 / 1.05;
+    background: linear-gradient(180deg, var(--ink-850), var(--ink-900));
+    border-radius: 22px;
+    border: 1px solid var(--line);
+    overflow: hidden;
+    box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.6);
+}
+
+.viewfinder .vf-frame {
+    position: absolute;
+    inset: 34px;
+    border-radius: 18px;
+}
+
+.viewfinder .vf-corner {
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    border: 2.5px solid var(--mint-400);
+    opacity: 0.9;
+    animation: vf-pulse 2.6s ease-in-out infinite;
+}
+
+.vf-corner.tl { top: 0; left: 0; border-right: none; border-bottom: none; border-radius: 8px 0 0 0; }
+.vf-corner.tr { top: 0; right: 0; border-left: none; border-bottom: none; border-radius: 0 8px 0 0; }
+.vf-corner.bl { bottom: 0; left: 0; border-right: none; border-top: none; border-radius: 0 0 0 8px; }
+.vf-corner.br { bottom: 0; right: 0; border-left: none; border-top: none; border-radius: 0 0 8px 0; }
+
+.viewfinder .vf-face-icon {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(234, 240, 250, 0.16);
+}
+
+.viewfinder .vf-face-icon svg {
+    width: 46%;
+    height: 46%;
+}
+
+.viewfinder .vf-scanline {
+    position: absolute;
+    left: 8%;
+    right: 8%;
+    height: 2px;
+    background: linear-gradient(90deg, rgba(52, 224, 161, 0), var(--mint-400), rgba(52, 224, 161, 0));
+    box-shadow: 0 0 14px 2px rgba(52, 224, 161, 0.55);
+    animation: vf-scan 3.2s ease-in-out infinite;
+}
+
+.viewfinder .vf-status {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 18px;
+    text-align: center;
+}
+
+.viewfinder .vf-status .vf-badge {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    color: var(--text-300);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    padding: 0.35rem 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.viewfinder .vf-status .vf-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--amber-400);
+    animation: vf-dot 1.6s ease-in-out infinite;
+}
+
+.viewfinder .vf-preview-tag {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-500);
+    border: 1px solid var(--line-strong);
+    border-radius: 6px;
+    padding: 0.2rem 0.5rem;
+}
+
+@keyframes vf-scan {
+    0%   { top: 12%; opacity: 0; }
+    10%  { opacity: 1; }
+    50%  { top: 84%; opacity: 1; }
+    60%  { opacity: 0; }
+    100% { top: 12%; opacity: 0; }
+}
+
+@keyframes vf-pulse {
+    0%, 100% { opacity: 0.55; }
+    50%      { opacity: 1; }
+}
+
+@keyframes vf-dot {
+    0%, 100% { opacity: 0.35; }
+    50%      { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .viewfinder .vf-scanline,
+    .viewfinder .vf-corner,
+    .viewfinder .vf-status .vf-dot {
+        animation: none;
+    }
+}
+
+/* ---------- Trust strip ---------- */
+.trust-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+.trust-strip .trust-item {
+    background: var(--ink-900);
+    padding: 1.4rem 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+}
+
+.trust-strip .trust-item i {
+    font-size: 1.3rem;
+    color: var(--mint-400);
+    flex-shrink: 0;
+}
+
+.trust-strip .trust-item .t-label {
+    font-family: 'Space Grotesk', sans-serif;
+    color: var(--text-100);
+    font-size: 0.92rem;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.trust-strip .trust-item .t-sub {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text-500);
+}
+
+/* ---------- How it works ---------- */
+.step-card {
+    background: var(--ink-800);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 2rem 1.75rem;
+    height: 100%;
+    position: relative;
+}
+
+.step-card .step-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--mint-400);
+    border: 1px solid rgba(52, 224, 161, 0.35);
+    border-radius: 999px;
+    padding: 0.2rem 0.65rem;
+    display: inline-block;
+    margin-bottom: 1.1rem;
+}
+
+.step-card h3 {
+    font-size: 1.15rem;
+    margin-bottom: 0.6rem;
+}
+
+.step-card p {
+    color: var(--text-300);
+    font-size: 0.94rem;
+    margin-bottom: 0;
+}
+
+.step-connector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-500);
+    font-size: 1.4rem;
+}
+
+/* ---------- Security section ---------- */
+.security-copy h2 {
+    font-size: clamp(1.8rem, 3vw, 2.3rem);
+    margin-bottom: 1rem;
+}
+
+.spec-list {
+    background: var(--ink-800);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.spec-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.05rem 1.4rem;
+    border-bottom: 1px solid var(--line);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.85rem;
+}
+
+.spec-row:last-child {
+    border-bottom: none;
+}
+
+.spec-row .spec-key {
+    color: var(--text-500);
+}
+
+.spec-row .spec-val {
+    color: var(--mint-400);
+    text-align: right;
+}
+
+/* ---------- Verification explained ---------- */
+.explain-card {
+    background: var(--ink-900);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 1.9rem;
+    height: 100%;
+}
+
+.explain-card .explain-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(91, 141, 239, 0.12);
+    color: var(--azure-400);
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+}
+
+.explain-card h3 {
+    font-size: 1.05rem;
+    margin-bottom: 0.5rem;
+}
+
+.explain-card p {
+    font-size: 0.92rem;
+    color: var(--text-300);
+    margin-bottom: 0;
+}
+
+/* ---------- CTA band ---------- */
+.cta-band {
+    background: linear-gradient(135deg, var(--ink-850), var(--ink-950));
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    padding: 3.2rem 2rem;
+    text-align: center;
+}
+
+.cta-band h2 {
+    font-size: clamp(1.6rem, 3vw, 2.1rem);
+    margin-bottom: 0.6rem;
+}
+
+.cta-band p {
+    color: var(--text-300);
+    margin-bottom: 1.75rem;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 991.98px) {
+    .landing-hero {
+        padding: 4rem 0 3rem;
+        text-align: center;
+    }
+
+    .landing-hero .hero-copy .lede {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .landing-cta-row,
+    .hero-microtrust {
+        justify-content: center;
+    }
+
+    .viewfinder-wrap {
+        margin-top: 3rem;
+    }
+
+    .trust-strip {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .step-connector {
+        transform: rotate(90deg);
+        margin: -0.5rem 0;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .landing .section-pad {
+        padding: 3.5rem 0;
+    }
+
+    .landing-cta-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .landing-cta-row .btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .trust-strip {
+        grid-template-columns: 1fr;
+    }
+}
